@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/95bb6ffd85.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./styles/main.css" />
+    <title>Todo App-v2</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <header>
+          <div class="header">
+            <div class="clear--todos" id="clear-todos">
+              <i class="fas fa-redo-alt"></i>
+            </div>
+            <div class="current--date" id="current-date"></div>
+          </div>
+        </header>
+        <main>
+          <div class="content">
+            <div class="add--block">
+              <i class="fas fa-plus plus" id="plus"></i>
+              <input
+                type="text"
+                name=""
+                id="add-todo"
+                placeholder="Add to-do ..."
+              />
+            </div>
+            <ul class="list" id="list"></ul>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="./js/main.js" type="module"></script>
+  </body>
+</html>
