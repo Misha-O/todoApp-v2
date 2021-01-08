@@ -137,7 +137,6 @@ main {
   padding: 5px;
   margin: 10px;
   font-size: 20px;
-  background-color: #fff;
 }
 .lineThrough {
   text-decoration: line-through;
@@ -152,4 +151,12 @@ main {
 .item .trash:hover {
   color: #af0000;
   transform: scale(1.5);
+}
+
+/* dragged */
+.dragged {
+  font-weight: 700;
+  opacity: 0.5;
+  background-color: rgb(180, 180, 180);
+  text-transform: uppercase;
 }

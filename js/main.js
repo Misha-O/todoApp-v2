@@ -17,6 +17,9 @@ const classLineThrough = "lineThrough";
 let listStorage = [];
 let id = 0;
 
+// drag & drop
+let draggableItem;
+
 // get date
 currentDate.innerHTML = getCurrentDate();
 
@@ -29,6 +32,29 @@ input.addEventListener("keydown", processAddedTodo);
 list.addEventListener("click", processTodoInList);
 
 clearAll.addEventListener("click", clearAllTodos);
+
+// drag & drop todos
+
+window.addEventListener("dragstart", (e) => {
+  draggableItem = e.target;
+  draggableItem.classList.add("dragged");
+});
+
+window.addEventListener("dragend", (e) => {
+  draggableItem = e.target;
+  draggableItem.classList.remove("dragged");
+});
+
+list.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  const draggedElem = document.querySelector(".dragged");
+  const draggedOverElem = getElemDraggedOver(list, e.clientY);
+  if (draggedOverElem === null) {
+    list.appendChild(draggedElem);
+  } else {
+    list.insertBefore(draggedElem, draggedOverElem);
+  }
+});
 
 // functions
 
@@ -58,7 +84,7 @@ function addTodo(todo, id, done, trash) {
 
   const position = "beforeend";
   const item = `
-  <li class="item">
+  <li class="item" draggable="true">
     <i class="far ${DONE} circle" data-status="complete" id="${id}"></i>
     <p class="${LINE}" id="text">${todo}</p>
     <i class="fas fa-trash-alt trash" data-status="delete"  id="${id}"></i>
@@ -127,4 +153,32 @@ function processTodoInList(e) {
       break;
   }
   saveToStorage();
+}
+
+function getElemDraggedOver(container, mousePosition) {
+  // determine all elements inside container we are hovering over
+  const itemsInside = [...container.querySelectorAll(".item:not(.dragged)")];
+  // loop through elems to determine which elem mousePosition is over
+  return itemsInside.reduce(
+    (closestElem, containerChild) => {
+      const box = containerChild.getBoundingClientRect();
+
+      // distance from top to mouse cursor inside containerChild
+      // from vport top - till box top - half box height
+      const offset = mousePosition - box.top - box.height / 2;
+      // when below elem: positive; above: negative
+      // console.log("offset", offset);
+      if (offset < 0 && offset > closestElem.offset) {
+        return {
+          offset: offset,
+          child: containerChild,
+        };
+      } else {
+        return closestElem;
+      }
+      // which elem directly after mouse cursor
+      // get offset Y to container for closest and the one directly below
+    },
+    { offset: Number.NEGATIVE_INFINITY }
+  ).child;
 }
