@@ -8,7 +8,7 @@ This is my second try on to-do app.
 - add to-do by typing into the input field and pressing 'Enter';
 - mark to-do as 'completed';
 - delete to-do from the list by clicking respective icon;
-- shuffle to-do's within the list, simply dragging it on over another;
+- shuffle to-do's within the list, simply dragging it one over another;
 - all to-do's saved to local storage and will be retrieved if the page is
   reloaded;
 - local storage memory may be cleared from all stored to-do's by clicking
